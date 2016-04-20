@@ -3,10 +3,10 @@ use strict;
 use warnings;
 use feature 'say';
 use lib 'lib';
-use Urs;
+use Urls;
 
 my @data    = <DATA>;
-say Urs::main(\@data, 'r');
+say Urls::main(\@data, 'r');
 
 __DATA__
 - Perl: http://blog.geekuni.com/2016/04/interview-perls-pumpking-ricardo-signes.html; http://perl-users.jp/articles/advent-calendar/2009/casual/10.html, http://naoya.dyndns.org/~naoya/mt/archives/000657.html

@@ -8,9 +8,9 @@ use LWP::Protocol::https;
 use LWP::UserAgent;
 use Try::Tiny;
 use lib 'lib';
-use Urs;
+use Urls;
 
 print "url >>> ";
 
 my $data = <STDIN>;
-say Urs::main($data, 'i');
+say Urls::main($data, 'i');
