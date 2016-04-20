@@ -1,14 +1,16 @@
 # NAME
 
-urls - It's new $module
+urls - Return Web page title.
 
 # SYNOPSIS
 
     use urls;
 
-# DESCRIPTION
+# DEMO
 
-urls is ...
+![ui](https:/dl.dropboxusercontent.com/u/7779513/urls/ui.gif)
+
+![ur](https:/dl.dropboxusercontent.com/u/7779513/urls/ur.gif)
 
 # LICENSE
 
@@ -19,4 +21,7 @@ it under the same terms as Perl itself.
 
 # AUTHOR
 
-Hiroaki Kadomatsu <note103@gmail.com>
+Hiroaki Kadomatsu (@note103)
+
+- [Blog](http://note103.hateblo.jp/)
+- [Twitter](https://twitter.com/note103)
