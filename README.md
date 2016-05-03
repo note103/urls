@@ -8,9 +8,9 @@ urls - Return Web page title.
 
 # DEMO
 
-![ui](https:/dl.dropboxusercontent.com/u/7779513/urls/ui.gif)
+![ui](https://dl.dropboxusercontent.com/u/7779513/urls/ui.gif)
 
-![ur](https:/dl.dropboxusercontent.com/u/7779513/urls/ur.gif)
+![ur](https://dl.dropboxusercontent.com/u/7779513/urls/ur.gif)
 
 # LICENSE
 
