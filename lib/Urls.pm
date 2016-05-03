@@ -10,6 +10,7 @@ use Try::Tiny;
 
 my @data    = ();
 my @urls    = ();
+my $regexp = qr{http[:s][^\s,;>]+};
 
 sub main {
     my ( $get, $param )    = @_;
@@ -27,7 +28,6 @@ sub main {
     }
 
     my $agent = LWP::UserAgent->new;
-
     my @char;
     my @result;
 
@@ -62,12 +62,13 @@ sub main {
     my %unique = ();
     map {$unique{$_} = 1;} @result;
 
-    for my $result (keys %unique) {
-        if ($result =~ /(http[:s][^\s\)]+)/g) {
-            my $replace = $1;
-            $replace =~ s/\?/\\?/;
+    for my $replace (keys %unique) {
+        if ($replace =~ /(http[:s][^\s\)]+)/g) {
+            my $target = $1;
+            $target =~ s/\?/\\?/;
             for my $data (@data) {
-                $data =~ s/$replace/$result/;
+                next if ($data =~ /(\($regexp\))/g);
+                $data =~ s/$target/$replace/;
             }
         }
     }
@@ -75,27 +76,24 @@ sub main {
 }
 
 my $rest    = '';
-
 sub extr {
     my $e = shift;
     my ($x, $y);
-    if ($e =~ /(.*)(\(http[:s][^\s,;>]+\))(.*)/g) {
-        $x = $1 if $1;
-        $y = $4 if $4;
-        if ($x && $y) { $rest = $1.$4;
-        } elsif ($x) { $rest = $x;
-        } elsif ($y) { $rest = $y;
-        }
-    } elsif ($e =~ /(.*)(http[:s][^\s,;>]+)(.*)/g) {
-        push @urls, $2;
-        $x = $1 if $1;
-        $y = $3 if $3;
-        if ($x && $y) { $rest = $1.$3;
-        } elsif ($x) { $rest = $x;
-        } elsif ($y) { $rest = $y;
-        }
+
+    if ($e =~ /(?<prematch>.*)(\($regexp\))(?<postmatch>.*)/g) {
+    } elsif ($e =~ /(?<prematch>.*)(?<match>$regexp)(?<postmatch>.*)/g) {
+        push @urls, $+{match};
+    } else {
+        next;
     }
-    extr($rest) if ($rest =~ /(.*)(http[:s][^\s,;>]+)(.*)/);
+
+    $x = $+{prematch} if $+{prematch};
+    $y = $+{postmatch} if $+{postmatch};
+    if ($x && $y) { $rest = $x.$y;
+    } elsif ($x) { $rest = $x;
+    } elsif ($y) { $rest = $y;
+    }
+    extr($rest) if ($rest =~ /(.*)($regexp)(.*)/);
 }
 
 1;
